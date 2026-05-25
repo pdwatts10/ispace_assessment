@@ -23,6 +23,8 @@ class Constraint:
     threshold: int|float|Quantity
     tolerance: Optional[float] = None
 
+    # searching dataclasses for attribute values is ugly
+    # brute force our way through fields until we find what we want
     @staticmethod
     def search_for_field_value(param:str,vehicle:Vehicle) -> Quantity|float:
             try:
@@ -41,6 +43,9 @@ class Constraint:
 
             return val
 
+    # flexibily check a constrained parameter against it's requirement
+    # supports all mathematical comparison operators
+    # supports float equivalent w/ input tolerance param, raises and Exception if no tolerance is provided in this case
     def evaluate_constraint(self,vehicle:Vehicle) -> bool:
 
         curr_val = self.search_for_field_value(self.param,vehicle)
@@ -69,6 +74,7 @@ def optimize_vehicle(
     targets:list[Target]
 ) -> Vehicle:
     
+    # evaluate a performance param against the constraint for the given target independent
     def evaluate_targets(targets:list[Target],vehicle:Vehicle):
         pass_fail = {}
         error = {}
@@ -80,6 +86,10 @@ def optimize_vehicle(
     
     pass_fail,error = evaluate_targets(targets,vehicle)
 
+    # not at all elegant or robust, but illustrates general structure for optimization
+    # independents produce response against a constrained dependent
+    # based on observed error wrt target, adjust independent
+    # really simplistic, stripped down Newton-Raphson style solver w/o jacobian evaluations or reponse directionality handling
     passes = 0
     while not all(good for good in pass_fail.values()):
         if passes > MAX_PASS: break

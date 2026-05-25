@@ -6,6 +6,7 @@ from src.systems import *
 from src.optimization import *
 from src.load_config import get_vehicles,get_constraints
 
+# just a wrapper to load vehicles and constraints and call optimization routine
 def size_landar(vehicle_config_path:str,constraints_config_path:str):
     
     vehicles = get_vehicles(config_path=vehicle_config_path)
@@ -16,7 +17,9 @@ def size_landar(vehicle_config_path:str,constraints_config_path:str):
 
     return vehicles
 
-def parse_vehicle_to_df(vehicles:list[Vehicle]|Vehicle):
+# gross, really badly formatted dataframe for side-by-side comparisons of prop systems
+# could really use sig fig rounding, stripping units from Quantity objects, creating separate unit metadata...
+def parse_vehicle_to_df(vehicles:list[Vehicle]):
     df = None
 
     for vehicle in vehicles:

@@ -18,6 +18,7 @@ class PropTank:
     _wall_thickness:Quantity = field(init=False)
     _dry_mass:Quantity = field(init=False)
 
+    # after init, determine tank sizing and mass from material props and fluid volume
     def __post_init__(self):
         self._inner_radius = (self.fluid_volume.to('m^3')/np.pi)**(1/3)
         self._wall_thickness = self.safety_factor*self.meop.to('Pa')*self.inner_radius.to('m')/(2.0*self.yield_strength.to('Pa'))
@@ -63,6 +64,7 @@ class PropulsionSystem:
     system_type: prop_sytem_type
     _dry_mass: Quantity = field(init=False)
 
+    # initialize system mass, includes tank mass
     def __post_init__(self):
         match self.system_type:
             case 'pressure_fed':
@@ -77,6 +79,7 @@ class PropulsionSystem:
     def dry_mass(self) -> Quantity:
         return self._dry_mass
     
+    # preliminary sizing of prop system based on tank sizing and mass scalars
     def size_prop_system(self,**kwargs) -> None:
         self.tank.size_tank(**kwargs)
 
@@ -105,11 +108,12 @@ class Vehicle:
     _twr: Quantity = field(init=False)
     _mass_margin: Quantity = field(init=False)
 
-    # need to initialize
     def __post_init__(self) -> None:
+        # need to initialize propellant mass from limit mass and dV requirements
         self._initialize_prop_mass()
         self._wet_mass = self.propellant_mass.to('kg') + self.base_mass.to('kg') + self.prop_system.dry_mass.to('kg')
 
+        # run through sizing loop to ensure dV, wet, and dry mass are internally consistent post-init
         self.size_vehicle()
         
     # since we know the limit mass, can make an educated guess of the required prop load before optimization
