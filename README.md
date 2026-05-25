@@ -52,3 +52,4 @@ Python tool for comparing propulsion system concepts
     * use 'uv run pytest .\tests\test.py' to run unit tests
 * Currently no CLI style interface implemented
 * Run 'size_landar.py' as script to call config files from '.\configs' to run a basic optimization routine based on the constraints specified in .\configs\sizing_constraints.yaml'
+* Run 'sensitivity.py' as script to sensitivity sweeps. Currently just hard-coded sensitivity arrays in "if __name__ == '__main__'" block

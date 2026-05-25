@@ -16,8 +16,9 @@ def size_landar(vehicle_config_path:str,constraints_config_path:str):
 
     return vehicles
 
-def parse_vehicle_to_df(vehicles:list[Vehicle]):
+def parse_vehicle_to_df(vehicles:list[Vehicle]|Vehicle):
     df = None
+
     for vehicle in vehicles:
         data = {}
         for _ka,_va in vehicle.__dict__.items():
@@ -37,6 +38,7 @@ def parse_vehicle_to_df(vehicles:list[Vehicle]):
             df = pd.DataFrame.from_dict(data,orient='index')
         else:
             df = pd.concat([df,pd.DataFrame.from_dict(data,orient='index')],axis=1)
+        
     df.columns = df.loc['system_type',:].values
     df = df.drop('system_type',inplace=False)
     df.to_excel('system_compare.xlsx')

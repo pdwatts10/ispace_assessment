@@ -24,7 +24,7 @@ class Constraint:
     tolerance: Optional[float] = None
 
     @staticmethod
-    def search_for_field_value(param:str,vehicle:Vehicle):
+    def search_for_field_value(param:str,vehicle:Vehicle) -> Quantity|float:
             try:
                 val = getattr(vehicle,param)
             except AttributeError:

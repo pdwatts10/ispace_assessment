@@ -1,6 +1,7 @@
 # VS Code artifacts
 __pycache__/
 .vscode
+.pytest_cache
 
 # Distribution / packaging
 .Python
@@ -36,6 +37,7 @@ venv.bak/
 *.xlsx
 *.csv
 *.parquet
+*.html
 
 # Misc
 scratch.py

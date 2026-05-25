@@ -13,8 +13,8 @@ PROP_TANK = PropTank(
 
 PROPULSION_SYSTEM = PropulsionSystem(
     tank=PROP_TANK,
-    inlet_pressure=Q_(40,'bar'),
-    specific_impulse=Q_(330,'sec'),
+    inlet_pressure=Q_(40.0,'bar'),
+    specific_impulse=Q_(330.0,'sec'),
     thrust=Q_(10.0,'kN'),
     mass_scalar=Q_(0.008,'kg/N'),
     system_type='pump_fed'    
@@ -147,7 +147,7 @@ def test_vehicle():
         limit_mass=Q_(1500.0,'kg'),
         propellant_density=Q_(1000.0,'kg/m^3'),
         prop_system=PROPULSION_SYSTEM 
-    ) == pytest.approx(691.3052)
+    ) == pytest.approx(589.8955)
 
     assert calc_vehicle_wet_mass(
         delta_v=Q_(2000.0,'m/sec'),
@@ -155,7 +155,7 @@ def test_vehicle():
         limit_mass=Q_(1500.0,'kg'),
         propellant_density=Q_(1000.0,'kg/m^3'),
         prop_system=PROPULSION_SYSTEM 
-    ) == pytest.approx(1383.0713)
+    ) == pytest.approx(1279.9604)
 
     assert calc_vehicle_twr(
         delta_v=Q_(2000.0,'m/sec'),
@@ -163,7 +163,7 @@ def test_vehicle():
         limit_mass=Q_(1500.0,'kg'),
         propellant_density=Q_(1000.0,'kg/m^3'),
         prop_system=PROPULSION_SYSTEM 
-    ) == pytest.approx(0.7370321)
+    ) == pytest.approx(0.7964059)
 
     assert calc_vehicle_mass_margin(
         delta_v=Q_(2000.0,'m/sec'),
@@ -171,4 +171,4 @@ def test_vehicle():
         limit_mass=Q_(1500.0,'kg'),
         propellant_density=Q_(1000.0,'kg/m^3'),
         prop_system=PROPULSION_SYSTEM 
-    ) == pytest.approx(0.0779524)
+    ) == pytest.approx(0.1466931)

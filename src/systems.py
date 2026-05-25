@@ -103,14 +103,15 @@ class Vehicle:
     _propellant_mass: Quantity = field(init=False)
     _wet_mass: Quantity = field(init=False)
     _twr: Quantity = field(init=False)
+    _mass_margin: Quantity = field(init=False)
 
+    # need to initialize
     def __post_init__(self) -> None:
         self._initialize_prop_mass()
-        
         self._wet_mass = self.propellant_mass.to('kg') + self.base_mass.to('kg') + self.prop_system.dry_mass.to('kg')
-        self._twr = self.prop_system.thrust.to('N')/(G0*self.wet_mass)
-        self._mass_margin = (self.limit_mass.to('kg') - self.wet_mass.to('kg'))/self.limit_mass.to('kg')
-    
+
+        self.size_vehicle()
+        
     # since we know the limit mass, can make an educated guess of the required prop load before optimization
     def _initialize_prop_mass(self) -> None:
         guess_final_mass = self.limit_mass/np.exp(self.delta_v.to('m/sec')/(self.prop_system.specific_impulse.to('sec')*G0.to('m/sec^2')))
@@ -167,4 +168,3 @@ class Vehicle:
         
         self._twr = self.prop_system.thrust.to('N')/(G0*self._wet_mass)
         self._mass_margin = (self.limit_mass.to('kg') - self.wet_mass.to('kg'))/self.limit_mass.to('kg')
-
