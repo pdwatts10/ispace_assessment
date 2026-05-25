@@ -37,3 +37,18 @@ Python tool for comparing propulsion system concepts
 ## Outputs
 * Propellant mass requirment
 * Margin against limit mass
+
+## Assumptions
+* Engine inlet pressures do not effect system sizing
+    * No checks for positive dP from tank MEOP to inlet press in place for pressure fed systems, but note that user should ensure positive dP
+* Pressure fed system is inappropriately constrained
+    * System thrust does not impact vehicle mass as pump fed engine; however, increased thrust requires some combination of increased Pc, throat area, and expansion ratio which all impact system mass
+    * All other mass drivers constrained by the problem statement. Only remaining unconstrained input is propellant tank mass. Limit mass requirement was satisified even with safety factor = 3 for tanks
+
+## Basic Usage
+* Package management with UV
+    * run 'uv sync' to initialize venv
+    * use 'uv run <some_python_file.py>' to run
+    * use 'uv run pytest .\tests\test.py' to run unit tests
+* Currently no CLI style interface implemented
+* Run 'size_landar.py' as script to call config files from '.\configs' to run a basic optimization routine based on the constraints specified in .\configs\sizing_constraints.yaml'

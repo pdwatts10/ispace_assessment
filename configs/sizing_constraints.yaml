@@ -1,0 +1,6 @@
+vehicle_constraints:
+  - independent: thrust
+    constraint:
+      param: twr
+      operator: '>='
+      threshold: 1.5

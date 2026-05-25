@@ -1,0 +1,34 @@
+pump_fed_vehicle:
+  delta_v: 2000.0 m/sec
+  base_mass: 600.0 kg
+  limit_mass: 1500.0 kg
+  propellant_density: 1000.0 kg/m^3
+  prop_system:
+    inlet_pressure: 40.0 bar
+    specific_impulse: 330 sec
+    system_type: pump_fed
+    mass_scalar: 0.008 kg/N
+    thrust: 10.0 kN
+    tank:
+      matl_density: 2.71 g/cm^3
+      yield_strength: 359.0 MPa
+      fluid_volume: 700 liter
+      meop: 10.0 bar
+      safety_factor: 1.5
+pressure_fed_vehicle:
+  delta_v: 2000.0 m/sec
+  base_mass: 600.0 kg
+  limit_mass: 1500.0 kg
+  propellant_density: 1000.0 kg/m^3
+  prop_system:
+    inlet_pressure: 20.0 bar
+    specific_impulse: 310 sec
+    system_type: pressure_fed
+    mass_scalar: 0.002 kg/bar
+    thrust: 10.0 kN
+    tank:
+      matl_density: 2.71 g/cm^3
+      yield_strength: 359.0 MPa
+      fluid_volume: 700 liter
+      meop: 25.0 bar
+      safety_factor: 1.5
